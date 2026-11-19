@@ -1,0 +1,7 @@
+Verify your email
+
+Enter this code in the N.O.D.E. app to verify your email address:
+
+{{TOKEN}}
+
+If you did not create an account, you can ignore this email.

@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: node-wholesale-api
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: JWT_SECRET_KEY
+        sync: false          # Set manually in Render dashboard — never commit secrets
+      - key: JWT_EXPIRATION_MINUTES
+        value: "1440"
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false          # Set to your Flutter app's origin, e.g. https://yourapp.com
+      - key: ALLOWED_HOSTS
+        sync: false          # Set to your Render service URL, e.g. node-wholesale-api.onrender.com
+      - key: RESEND_API_KEY
+        sync: false          # Your re_... key from resend.com
+      - key: RESEND_FROM_EMAIL
+        sync: false          # Verified sender, e.g. no-reply@mail.yourdomain.com
+      - key: SUPABASE_URL
+        sync: false          # https://your-project.supabase.co
+      - key: SUPABASE_ANON_KEY
+        sync: false          # Supabase anon/public key
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false          # Supabase service-role key (kept secret)
+      - key: R2_PUBLIC_URL
+        value: https://nodemediafiles.crimchart.com
+      - key: CLOUDFLARE_MEDIA_ENDPOINT
+        value: https://nodemediafiles.crimchart.com/_node/media
+      - key: DATABASE_URL
+        sync: false          # Optional: Postgres URL if you migrate off SQLite
